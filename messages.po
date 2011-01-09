@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: panofill VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-01-07 22:32+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: panofill_gettext.cpp:325
+#, boost-format
+msgid "Betrete Rekursionstiefe %1% (%2% × %3% Pixel)\n"
+msgstr ""
+
+#: panofill_gettext.cpp:329
+#, boost-format
+msgid "Keine transparenten Pixel in Tiefe %1%\n"
+msgstr ""
+
+#: panofill_gettext.cpp:347
+#, boost-format
+msgid "Verlasse Rekursionstiefe %1%\n"
+msgstr ""
+
+#: panofill_gettext.cpp:376
+msgid ""
+"    panofill -o AUSGABE [-h -n -v -q] EINGABE\n"
+"\n"
+msgstr ""
+
+#: panofill_gettext.cpp:377
+msgid ""
+"panofill ist ein Programm zur automatischen Vervollständigung sphärischer\n"
+"360°·180°-Panoramabilder, das die Eigenschaften dieser Projektion\n"
+"berücksichtigt.\n"
+"\n"
+msgstr ""
+
+#: panofill_gettext.cpp:380
+msgid ""
+"-h  Diesen Hilfetext ausgeben und das Programm beenden\n"
+"-n  Nächster-Nachbar-Interpolation verwenden\n"
+"-v  Mehr Statusinformationen anzeigen (kann mehrfach angegeben werden)\n"
+"-q  Keine Statusinformationen anzeigen\n"
+"\n"
+msgstr ""
+
+#: panofill_gettext.cpp:403
+msgid ""
+"Keine Eingabedatei angegeben\n"
+"\n"
+msgstr ""
+
+#: panofill_gettext.cpp:408
+msgid ""
+"Keine Ausgabedatei angegeben\n"
+"\n"
+msgstr ""
+
+#: panofill_gettext.cpp:415
+msgid ""
+"Fehler beim Laden des Bildes\n"
+"\n"
+msgstr ""
+
+#: panofill_gettext.cpp:420
+msgid ""
+"Das Bild ist vollständig transparent\n"
+"\n"
+msgstr ""
