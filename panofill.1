@@ -1,0 +1,24 @@
+.TH PANOFILL 1
+.SH NAME
+panofill \- Fills transparent areas in panorama images
+.SH SYNOPSIS
+.B panofill [
+.I options
+.B ] 
+.I file
+.SH DESCRIPTION
+.B panofill
+fills transparent areas in panorama images in spherical projection in order to increase the visual Quality.
+.SH OPTIONS
+.B panofill
+accepts the following command line parameters:
+.IP -o
+Output file.
+.IP -v
+Increase verbosity level.
+.IP -q
+Do not display status messages.
+.IP -n
+Use next neighbour interpolation instead of linear interpolation.
+.SH EXAMPLES
+panofill -o out.tiff -nv in.tiff
