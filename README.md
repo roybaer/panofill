@@ -1,8 +1,6 @@
-# panofill - ergänzt Panoramabilder
+# panofill
 
-## Über panofill
-
-`panofill` ist ein Programm zur automatischen Vervollständigung sphärischer 360°·180°-Panoramabilder, das die Eigenschaften dieser Projektion berücksichtigt.
+Das Kommandozeilenwerkzeug `panofill` ist ein Programm zur automatischen Vervollständigung sphärischer 360°×180°-Panoramabilder, das die Eigenschaften dieser Projektion berücksichtigt.
 
 [![](img/test_in.png)![](img/test_out.png)](examples.md)
 
@@ -19,7 +17,7 @@ Ziel des Projektes ist es, ein für Stapelverarbeitungszwecke geeignetes plattfo
 Das Programm arbeitet mit einer an die sphärische Projektion angepassten Gaußpyramide. Die Anpassungen betreffen eine variable in Polnähe ansteigende Weichzeichnerbreite und das Verhalten an den Bildrändern.
 
 - TIFF-Datei lesen
-- Gleitkommadaarstellung des Bildes erzeugen _(Ebene 0 der Gaußpyramide)_
+- Gleitkommadarstellung des Bildes erzeugen _(Ebene 0 der Gaußpyramide)_
   - Nächste Gaußpyramidenebene erzeugen; Alphakanal dabei mit Obergrenze mit einem festen Wert multiplizieren
   - Rekursionstiefe erhöhen, falls die oberste Gaußpyramidenebene noch transparente Pixel enthält
   - Die zweitoberste Ebene mit der obersten überblenden und die oberste löschen
