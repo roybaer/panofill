@@ -1,6 +1,6 @@
 /*
  * panofill - fills transparent areas in panorama images.
- * Copyright (C) 2010, 2011  Benedikt Freisen
+ * Copyright (C) 2010, 2011, 2018  Benedikt Freisen
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -26,8 +26,13 @@
 
 #include <locale>
 #include <unistd.h>
+#include <libintl.h>
+#include <boost/format.hpp>
+#define PACKAGE "panofill"
+#define LOCALEDIR ""
 
 using namespace std;
+using boost::format;
 
 int verbosity = 0;
 
@@ -245,10 +250,10 @@ image* image::doubleSizeL()
             temp[(y * 2 + 1) * w + x * 2].b = (data[y * width + x].b * 9 + data[min(height - 1, y + 1) * width + x].b * 3 + data[min(height - 1, y + 1) * width + xm1].b * 1 + data[y * width + xm1].b * 3) / 16;
             temp[(y * 2 + 1) * w + x * 2].a = (data[y * width + x].a * 9 + data[min(height - 1, y + 1) * width + x].a * 3 + data[min(height - 1, y + 1) * width + xm1].a * 1 + data[y * width + xm1].a * 3) / 16;
 
-	    temp[(y * 2 + 1) * w + x  *2 + 1].r = (data[y * width + x].r * 9 + data[min(height - 1, y + 1) * width + x].r * 3 + data[min(height - 1, y + 1) * width + xp1].r * 1 + data[y * width + xp1].r * 3) / 16;
-	    temp[(y * 2 + 1) * w + x  *2 + 1].g = (data[y * width + x].g * 9 + data[min(height - 1, y + 1) * width + x].g * 3 + data[min(height - 1, y + 1) * width + xp1].g * 1 + data[y * width + xp1].g * 3) / 16;
-	    temp[(y * 2 + 1) * w + x  *2 + 1].b = (data[y * width + x].b * 9 + data[min(height - 1, y + 1) * width + x].b * 3 + data[min(height - 1, y + 1) * width + xp1].b * 1 + data[y * width + xp1].b * 3) / 16;
-	    temp[(y * 2 + 1) * w + x  *2 + 1].a = (data[y * width + x].a * 9 + data[min(height - 1, y + 1) * width + x].a * 3 + data[min(height - 1, y + 1) * width + xp1].a * 1 + data[y * width + xp1].a * 3) / 16;
+	    temp[(y * 2 + 1) * w + x * 2 + 1].r = (data[y * width + x].r * 9 + data[min(height - 1, y + 1) * width + x].r * 3 + data[min(height - 1, y + 1) * width + xp1].r * 1 + data[y * width + xp1].r * 3) / 16;
+	    temp[(y * 2 + 1) * w + x * 2 + 1].g = (data[y * width + x].g * 9 + data[min(height - 1, y + 1) * width + x].g * 3 + data[min(height - 1, y + 1) * width + xp1].g * 1 + data[y * width + xp1].g * 3) / 16;
+	    temp[(y * 2 + 1) * w + x * 2 + 1].b = (data[y * width + x].b * 9 + data[min(height - 1, y + 1) * width + x].b * 3 + data[min(height - 1, y + 1) * width + xp1].b * 1 + data[y * width + xp1].b * 3) / 16;
+	    temp[(y * 2 + 1) * w + x * 2 + 1].a = (data[y * width + x].a * 9 + data[min(height - 1, y + 1) * width + x].a * 3 + data[min(height - 1, y + 1) * width + xp1].a * 1 + data[y * width + xp1].a * 3) / 16;
         }
     }
     return new image(w, h, temp, true);
@@ -313,11 +318,11 @@ int interpolator = 1;
 bool complete(image* img, int n = 0)
 {
     if (verbosity > 0)
-        clog << " + Tiefe " << n << " (" << img->width << " x " << img->height << ")" << endl;
+        clog << format(gettext("Enter recursion depth %1% (%2% × %3% pixels)\n")) % n % img->width % img->height;
     if (img->noTransparentPixels())
     {
         if (verbosity > 0)
-            clog << " noTransparentPixels" << endl;
+            clog << format(gettext("No transparent pixels in depth %1%\n")) % n;
     }
     else
     {
@@ -334,7 +339,7 @@ bool complete(image* img, int n = 0)
         highRes->~image();
     }
     if (verbosity > 0)
-        clog << " - Tiefe " << n << endl;
+        clog << format(gettext("Leave recursion depth %1%\n")) % n;
     return true;
 }
 
@@ -342,6 +347,10 @@ bool complete(image* img, int n = 0)
 
 int main(int argc, char** argv)
 {
+    setlocale(LC_ALL, "");
+    bindtextdomain(PACKAGE, LOCALEDIR);
+    textdomain(PACKAGE);
+
     locale loc("");
     clog.imbue(loc);
 
@@ -359,7 +368,13 @@ int main(int argc, char** argv)
             oname = optarg;
             break;
         case 'h':
-            cout << "help";
+            cout << gettext("    panofill -o OUTPUT [-h -n -v -q] INPUT\n\n");
+            cout << gettext("panofill is a program for the automatic completion of spherical\n"
+                            "360°×180° panorama images that respects the properties of this projection.\n\n");
+            cout << gettext("-h  Output this help text and quit the program\n"
+                            "-n  Use next neighbour interpolation\n"
+                            "-v  Show more status information (can be specified multiple times)\n"
+                            "-q  Do not show any status information\n\n");
             return 0;
         case 'n':
             interpolator = 0;
@@ -379,24 +394,24 @@ int main(int argc, char** argv)
 
     if (iname == NULL)
     {
-        cerr << "iname == NULL";
+        cerr << gettext("No input file specified\n\n");
         return 1;
     }
     if (oname == NULL)
     {
-        cerr << "oname == NULL";
+        cerr << gettext("No output file specified\n\n");
         return 1;
     }
 
     image* img = new image(iname);
     if (img->data == NULL)
     {
-        cerr << "img->data == NULL";
+        cerr << gettext("Error while loading the image\n\n");
         return 1;
     }
     if (img->onlyTransparentPixels())
     {
-        cerr << "img->onlyTransparentPixles()";
+        cerr << gettext("The image is fully transparent\n\n");
         return 1;
     }
     complete(img);
